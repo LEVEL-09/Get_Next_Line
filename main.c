@@ -6,11 +6,13 @@
 int main()
 {
 	int fd = open("text.txt", O_RDONLY);
-	char buf[11];
+	char buf[99999];
 	int i;
 
-	read(fd, buf, (size_t)10);
+	int retur = read(fd, buf, (size_t)14);
 
+	printf("retrun: %d \n", retur);
+	
 	printf("%s \n", buf);
 
 	close(fd);
