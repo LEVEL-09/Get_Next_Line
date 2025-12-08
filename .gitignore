@@ -54,9 +54,5 @@ dkms.conf
 # debug information files
 *.dwo
 
-# test files
-main.c
-text.txt     
-
 # directorys
 .vscode/*
