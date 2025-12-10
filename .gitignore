@@ -58,6 +58,9 @@ dkms.conf
 main.c
 text.txt     
 
+# draw file
+*.tldr
+
 # directorys
 .vscode/
 Libft/
