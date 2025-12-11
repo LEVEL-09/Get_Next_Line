@@ -29,6 +29,12 @@ static void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
+static void initialize(int *flag, int *size_line)
+{
+	*flag = 1;
+	*size_line = 0;
+}
+
 char	*get_next_line(int fd)
 {
 	static int		i;
@@ -40,7 +46,7 @@ char	*get_next_line(int fd)
 
 	if (!flag)
 		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	initailiza(&flag, &size_line);
+	initialize(&flag, &size_line);
 	if (BUFFER_SIZE == 0)
 		return (NULL);
 	while (1)
