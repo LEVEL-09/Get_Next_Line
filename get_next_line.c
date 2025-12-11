@@ -28,32 +28,31 @@ static void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-
 char	*get_next_line(int fd)
 {
-	static size_t	i;
+	static int		i;
 	static int		x;
-	static int		z;
+	static int		flag;
 	static char		*buf;
 	char			*line;
+	int 			size_line;
 
-	if (!x)
+	if (!flag)
 	{
-		buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (!buf)
-			return (NULL);
-		read(fd, buf, BUFFER_SIZE);
-		x = 1;
+		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		flag = 1;
 	}
-	while (i < BUFFER_SIZE)
+	if (BUFFER_SIZE == 0)
+		return (NULL);
+	size_line = 0;
+	while (1)
 	{
-		if (buf[i++] == '\n' || buf[i] == '\0')
+		read(fd, buf+i, 1);
+		size_line++;
+		if (buf[i++] == '\n')
 			break ;
 	}
-	line = malloc(sizeof(char) * (i-z));
-	if (!line)
-		return (line);
-	ft_memcpy(line, buf+z, i-z);
-	z = i;
+	line = ft_memcpy(malloc(sizeof(char) * size_line), buf+x, size_line);
+	x = i;
 	return (line);
 }
