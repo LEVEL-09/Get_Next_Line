@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/10 08:37:25 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/10 09:09:13by mkhoubaz         ###   ########.fr       */
+/*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
+/*   Updated: 2025/12/11 15:10:14 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	*ft_memcpy(void *dest, const void *src, size_t n)
 	size_t			i;
 	unsigned char	*ptr;
 
+	if (!dest || !src)
+		return (NULL);
 	if (dest == src)
 		return (dest);
 	ptr = (unsigned char *)dest;
@@ -29,7 +31,7 @@ static void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-static void initialize(int *flag, int *size_line)
+static void	initialize(int *flag, int *size_line)
 {
 	*flag = 1;
 	*size_line = 0;
@@ -38,25 +40,25 @@ static void initialize(int *flag, int *size_line)
 char	*get_next_line(int fd)
 {
 	static int		i;
-	static int		x;
 	static int		flag;
 	static char		*buf;
 	char			*line;
-	int 			size_line;
+	int				sline;
 
 	if (!flag)
 		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	initialize(&flag, &size_line);
+	if (!buf)
+		return (NULL);
+	initialize(&flag, &sline);
 	if (BUFFER_SIZE == 0)
 		return (NULL);
 	while (1)
 	{
-		read(fd, buf+i, 1);
-		size_line++;
+		read(fd, buf + i, 1);
+		sline++;
 		if (buf[i++] == '\n')
 			break ;
 	}
-	line = ft_memcpy(malloc(sizeof(char) * size_line), buf+x, size_line);
-	x = i;
+	line = ft_memcpy(malloc(sizeof(char) * sline), buf + (i - sline), sline);
 	return (line);
 }

@@ -8,8 +8,10 @@ int main()
 	int fd = open("text.txt", O_RDONLY);
 
 	char *line = get_next_line(fd);
+	printf("%s", line);
 
-	printf("%s \n", line);
+	line = get_next_line(fd);
+	printf("%s", line);
 
 	close(fd);
 }
