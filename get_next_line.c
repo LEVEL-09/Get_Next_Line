@@ -28,6 +28,7 @@ static void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
+
 char	*get_next_line(int fd)
 {
 	static int		i;
@@ -38,13 +39,10 @@ char	*get_next_line(int fd)
 	int 			size_line;
 
 	if (!flag)
-	{
 		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		flag = 1;
-	}
+	initailiza(&flag, &size_line);
 	if (BUFFER_SIZE == 0)
 		return (NULL);
-	size_line = 0;
 	while (1)
 	{
 		read(fd, buf+i, 1);
