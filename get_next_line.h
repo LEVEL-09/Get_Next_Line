@@ -1,9 +1,21 @@
-#ifndef GET_NEXT_LINE
-# define GET_NEXT_LINE
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 15:32:17 by mkhoubaz          #+#    #+#             */
+/*   Updated: 2025/12/09 15:45:13 by mkhoubaz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
-#endif
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 # include <stdlib.h>
 # include <unistd.h>
