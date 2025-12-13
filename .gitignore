@@ -54,9 +54,6 @@ dkms.conf
 # debug information files
 *.dwo
 
-# draw file
-*.tldr
-
 # directorys
 .vscode/
 Libft/
