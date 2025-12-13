@@ -10,8 +10,7 @@ int main()
 	char *line = get_next_line(fd);
 	printf("%s", line);
 
-	line = get_next_line(fd);
-	printf("%s", line);
+	// get_next_line(fd);
 
 	close(fd);
 }
