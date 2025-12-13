@@ -39,26 +39,30 @@ static void	initialize(int *flag, int *size_line)
 
 char	*get_next_line(int fd)
 {
-	static int		i;
-	static int		flag;
-	static char		*buf;
-	char			*line;
-	int				sline;
+	static char	*buf;
+	static int	size;
+	int			i;
+	int			flag;
+	char		*line;
 
-	if (!flag)
-		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (NULL);
-	initialize(&flag, &sline);
-	if (BUFFER_SIZE == 0)
-		return (NULL);
-	while (1)
+	i = size;
+	flag = 0;
+	while (!flag)
 	{
-		read(fd, buf + i, 1);
-		sline++;
-		if (buf[i++] == '\n')
-			break ;
+		buf = malloc(sizeof(char) * (BUFFER_SIZE + size + 1));
+		size += read(fd, buf+size, BUFFER_SIZE);
+		while (i < size)
+		{
+			if (buf[i++] == '\n')
+			{
+				flag = size - i; 
+				// leonax\nddddd | bufsize=4
+				// i = 4; size = 8; 4 < 8; 
+				// i = 7; 
+				break ;
+			}
+		}
 	}
-	line = ft_memcpy(malloc(sizeof(char) * sline), buf + (i - sline), sline);
+	ft_memcpy(malloc(sizeof(char) * i), buf + flag, i);
 	return (line);
 }
