@@ -75,18 +75,19 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*buf;
+	char		*temp;
 	int			flag;
 	int			i;
+	int			len_buf;
 
 	flag = 0;
-	line = malloc(sizeof(char) * 9999);
 	while (!flag)
 	{
 		i = 0;
-		buf = malloc(sizeof(char) * BUFFER_SIZE);
+		buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buf)
 			return (NULL);
-		read(fd, buf, BUFFER_SIZE);
+		len_buf = read(fd, buf, BUFFER_SIZE);
 		while (i < BUFFER_SIZE)
 		{
 			if (buf[i++] == '\n')
@@ -95,8 +96,12 @@ char	*get_next_line(int fd)
 				break ;
 			}
 		}
-		line = ft_strjoin(line, buf);
+		temp = ft_strdup(line);
+		free(line);
+		line = ft_strjoin(temp, buf);
+		free(buf);
 	}
+	free(temp);
 	return(line);
 }
 
