@@ -20,6 +20,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-char	*get_next_line(int fd);
+char			*get_next_line(int fd);
+static char		*ft_strdup(const char *s);
+static size_t	ft_strlen(const char *s);
+static void		*ft_memcpy(void *dest, const void *src, size_t n);
+char			*ft_strjoin(char const *s1, char const *s2, int index);
 
 #endif
