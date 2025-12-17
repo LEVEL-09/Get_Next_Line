@@ -20,10 +20,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+size_t			ft_strlen(char *s);
 char			*get_next_line(int fd);
-static char		*ft_strdup(const char *s);
-static size_t	ft_strlen(const char *s);
-static void		*ft_memcpy(void *dest, const void *src, size_t n);
-char			*ft_strjoin(char const *s1, char const *s2, int index);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strncpy(char *dest, char *src, unsigned int n);
 
 #endif

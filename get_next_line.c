@@ -22,27 +22,35 @@ static int	ft_search(const char *s, int c)
 		if (s[i++] == (const char)c)
 			return (i);
 	}
-	return (0);
+	return (-1);
 }
 
+#include <stdio.h>
 char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*buf;
-	int			posix;
-	int			index;
+	int			find;
+
 
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	posix = read(fd, buf, BUFFER_SIZE);
-	if (posix <= 0)
+	while (1)
 	{
-		free(buf);
-		return (NULL);
+		if (!read(fd, buf, BUFFER_SIZE))
+		{
+			free(line);
+			return (NULL);
+		}
+		buf[BUFFER_SIZE] = '\0';
+		line = ft_strjoin(line, buf);
+		find = ft_search(line, '\n');
+		if (find != -1)
+		{
+			ft_strncpy(buf, line, find);
+			ft_strncpy(line, line + find, ft_strlen(line) - ft_strlen(buf));
+			return (buf);
+		}
 	}
-	buf[BUFFER_SIZE + 1] = '\0';
-	index = ft_search(buf, '\n');
-	line = ft_strjoin(line, buf, index);
-	free(buf);
 }
