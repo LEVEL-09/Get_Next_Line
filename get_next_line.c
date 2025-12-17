@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/11 15:10:14 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/17 13:06:10 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,5 @@ char	*get_next_line(int fd)
 	line = ft_memcpy(malloc(sizeof(char) * sline), buf + (i - sline), sline);
 	return (line);
 }
+
+// tets
