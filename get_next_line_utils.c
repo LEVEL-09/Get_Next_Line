@@ -36,6 +36,7 @@ static char	*ft_strdup(char *s)
 	if (!p)
 		return (NULL);
 	ft_strncpy(p, s, ft_strlen(s) + 1);
+	free(s);
 	return (p);
 }
 
@@ -54,5 +55,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	ft_strncpy(ptr, s1, ft_strlen(s1));
 	ft_strncpy(ptr + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	free(s1);
+	free(s2);
 	return (ptr);
 }
