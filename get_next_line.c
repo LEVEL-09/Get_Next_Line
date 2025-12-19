@@ -59,7 +59,6 @@ static char	*ft_subjoin(char *str)
 	i = ft_check(str);
 	if (i == -1)
 		i = 0;
-	printf("%d \n", i);
 	len = ft_strlen(str+i);
 	ptr = malloc(len + 1);
 	if (!ptr)
@@ -74,6 +73,8 @@ char	*get_next_line(int fd)
 	char		*buf;
 	int 		fill;
 
+	if (!BUFFER_SIZE)
+		return (NULL);
 	while (1)
 	{
 		buf = malloc(BUFFER_SIZE + 1);
@@ -90,5 +91,4 @@ char	*get_next_line(int fd)
 			return (buf);
 		}
 	}
-
 }
