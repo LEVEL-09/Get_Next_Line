@@ -14,27 +14,8 @@
 
 #include <string.h>
 #include <stdio.h>
-static char	*ft_substr(char *str)
-{
-	int		i;
-	char	*p;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i++] == '\n')
-			break ;
-	}
-	p = malloc(i + 1);
-	p[i] = '\0';
-	while (i-- > 0)
-	{ 
-		p[i] = str[i];
-	}
-	return (p);
-}
-
-static int ft_check(char *s, char c)
+static int ft_check(char *s)
 {
 	int	i;
 
@@ -47,27 +28,67 @@ static int ft_check(char *s, char c)
 	return (-1);
 }
 
+static char	*ft_substr(char *str)
+{
+	int		i;
+	char	*p;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i++] == '\n')
+			break ;
+	}
+	p = malloc(i + 1);
+	if (!p)
+		return (NULL);
+	p[i] = '\0';
+	while (i-- > 0)
+		p[i] = str[i];
+	return (p);
+}
+
+static char	*ft_subjoin(char *str)
+{
+	char	*ptr;
+	int		len;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	i = ft_check(str);
+	if (i == -1)
+		i = 0;
+	printf("%d \n", i);
+	len = ft_strlen(str+i);
+	ptr = malloc(len + 1);
+	if (!ptr)
+		return (NULL);
+	ptr = ft_strncpy(ptr, str+i, len + 1);
+	return (ptr);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*buf;
+	int 		fill;
 
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
 	while (1)
 	{
-		int fill = read(fd, buf, BUFFER_SIZE);
+		buf = malloc(BUFFER_SIZE + 1);
+		fill = read(fd, buf, BUFFER_SIZE);
 		if (fill < 0)
 			return (NULL);
 		buf[fill] = '\0';
 		line = ft_strjoin(line, buf);
-		if (!line)
-			return NULL;
-		if (ft_check(line, '\n') != -1)
+		if (ft_check(line) != -1)
 		{
-			break ;
+			free(buf);
+			buf = ft_substr(line);
+			line = ft_subjoin(line);
+			return (buf);
 		}
 	}
-	return(ft_substr(line));
+
 }
