@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/19 21:34:36 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/19 22:18:01 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	ft_check(char *s, char c)
 	while (s[i])
 	{
 		if (s[i++] == c)
-			return (1);
+			return (i);
 	}
-	return (0);
+	return (-1);
 }
 
 static char	*ft_substr(char *str)
@@ -33,6 +33,8 @@ static char	*ft_substr(char *str)
 	char	*p;
 
 	i = 0;
+	if(!str)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i++] == '\n')
@@ -79,10 +81,10 @@ char	*get_next_line(int fd)
 		buf = malloc(BUFFER_SIZE + 1);
 		fill = read(fd, buf, BUFFER_SIZE);
 		if (fill == 0)
-			return (line);
+			return (NULL);
 		buf[fill] = '\0';
 		line = ft_strjoin(line, buf);
-		if (ft_check(line, '\n') || ft_check(line, '\0'))
+		if (ft_check(line, '\n') != -1 || ft_check(line, '\0') != -1)
 		{
 			free(buf);
 			buf = ft_substr(line);
