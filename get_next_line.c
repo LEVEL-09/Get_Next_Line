@@ -6,16 +6,32 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/20 03:36:47 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/20 22:54:08 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+static void	*fill_zero(char **line, char **buf)
+{
+	free(*buf);
+	if (!(line) || line[0][0] == '\0')
+	{
+		free(*line);
+		*line = NULL;
+		return (NULL);
+	}
+	*buf = *line;
+	*line = NULL;
+	return(*buf);
+}
+
 static int	ft_check(char *s, char c)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 	{
@@ -23,7 +39,7 @@ static int	ft_check(char *s, char c)
 			return (i);
 	}
 	if (s[i++] == c)
-			return (i);
+		return (i);
 	return (-1);
 }
 
@@ -85,23 +101,11 @@ char	*get_next_line(int fd)
 			return (NULL);
 		fill = read(fd, buf, BUFFER_SIZE);
 		buf[fill] = '\0';
-		if (fill == 0)
-		{
-			free(buf);
-			if (!line || line[0] == '\0')
-			{
-				free(line);
-				line = NULL;
-				return (NULL);
-			}
-			buf = line;
-			line = NULL;
-			return(buf);
-		}
+		if (fill == 0 && ft_check(line, '\n') == -1)
+			return (fill_zero(&line, &buf));
 		line = ft_strjoin(line, buf);
 		if (ft_check(line, '\n') != -1)
 		{
-			free(buf);
 			buf = ft_substr(line);
 			line = ft_subjoin(line);
 			return (buf);

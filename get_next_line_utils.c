@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:08:12 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/20 02:38:29 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/20 20:53:44 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ static char	*ft_strdup(char *s)
 {
 	char	*p;
 
-	p = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	p = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!p)
 		return (NULL);
 	ft_strncpy(p, s, ft_strlen(s) + 1);
+	free(s);
 	return (p);
 }
 
@@ -62,5 +63,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	ft_strncpy(ptr, s1, ft_strlen(s1));
 	ft_strncpy(ptr + ft_strlen(s1), s2, ft_strlen(s2) + 1);
 	free(s1);
+	free(s2);
 	return (ptr);
 }
