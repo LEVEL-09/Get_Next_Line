@@ -9,27 +9,27 @@ int main()
 
 	char *line;
 	
-	// line = get_next_line(fd);
-	// while (line)
-	// {	
-	// 	if(line == NULL)
-	// 		break ;
-	// 	printf("%s", line);
-	// 	free(line);
-	// 	line = get_next_line(fd);
-	// }
+	line = get_next_line(fd);
+	while (line)
+	{	
+		if(line == NULL)
+			break ;
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
 	
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
+	// line = get_next_line(fd);
+	// printf("%s", line);
+	// free(line);
 
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
+	// // line = get_next_line(fd);
+	// // printf("%s", line);
+	// // free(line);
 
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
+	// // line = get_next_line(fd);
+	// // printf("%s", line);
+	// // free(line);
 
 	close(fd);
 }

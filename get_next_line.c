@@ -6,14 +6,12 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/19 22:18:01 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/20 03:36:47 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#include <string.h>
-#include <stdio.h>
 static int	ft_check(char *s, char c)
 {
 	int	i;
@@ -24,6 +22,8 @@ static int	ft_check(char *s, char c)
 		if (s[i++] == c)
 			return (i);
 	}
+	if (s[i++] == c)
+			return (i);
 	return (-1);
 }
 
@@ -65,6 +65,7 @@ static char	*ft_subjoin(char *str)
 	if (!ptr)
 		return (NULL);
 	ptr = ft_strncpy(ptr, str + i, len + 1);
+	free(str);
 	return (ptr);
 }
 
@@ -72,19 +73,33 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*buf;
-	int			fill;
+	ssize_t		fill;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	while (1)
+	fill = 1;
+	while (fill > 0)
 	{
-		buf = malloc(BUFFER_SIZE + 1);
-		fill = read(fd, buf, BUFFER_SIZE);
-		if (fill == 0)
+		buf = malloc((size_t)BUFFER_SIZE + 1);
+		if (!buf)
 			return (NULL);
+		fill = read(fd, buf, BUFFER_SIZE);
 		buf[fill] = '\0';
+		if (fill == 0)
+		{
+			free(buf);
+			if (!line || line[0] == '\0')
+			{
+				free(line);
+				line = NULL;
+				return (NULL);
+			}
+			buf = line;
+			line = NULL;
+			return(buf);
+		}
 		line = ft_strjoin(line, buf);
-		if (ft_check(line, '\n') != -1 || ft_check(line, '\0') != -1)
+		if (ft_check(line, '\n') != -1)
 		{
 			free(buf);
 			buf = ft_substr(line);
@@ -92,4 +107,5 @@ char	*get_next_line(int fd)
 			return (buf);
 		}
 	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:08:12 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/19 16:08:13 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/20 02:38:29 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 		i++;
 	}
 	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
+		dest[i++] = '\0';
 	return (dest);
 }
 
@@ -55,8 +52,6 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*ptr;
 
-	if (!s1 && !s2)
-		return (NULL);
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
@@ -66,5 +61,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	ft_strncpy(ptr, s1, ft_strlen(s1));
 	ft_strncpy(ptr + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	free(s1);
 	return (ptr);
 }
