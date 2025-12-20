@@ -57,6 +57,7 @@ dkms.conf
 # test files
 main.c
 text.txt     
+output.txt
 
 # draw file
 *.tldr

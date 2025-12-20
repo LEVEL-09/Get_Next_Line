@@ -6,61 +6,110 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/17 13:06:10 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/20 23:08:46 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void	*ft_memcpy(void *dest, const void *src, size_t n)
+static void	*fill_zero(char **line, char **buf)
 {
-	size_t			i;
-	unsigned char	*ptr;
-
-	if (!dest || !src)
-		return (NULL);
-	if (dest == src)
-		return (dest);
-	ptr = (unsigned char *)dest;
-	i = 0;
-	while (i < n)
+	free(*buf);
+	if (!(line) || line[0][0] == '\0')
 	{
-		*(ptr + i) = *((unsigned char *)src + i);
-		i++;
+		free(*line);
+		*line = NULL;
+		return (NULL);
 	}
-	return (dest);
+	*buf = *line;
+	*line = NULL;
+	return(*buf);
 }
 
-static void	initialize(int *flag, int *size_line)
+static int	ft_check(char *s, char c)
 {
-	*flag = 1;
-	*size_line = 0;
+	int	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i++] == c)
+			return (i);
+	}
+	if (s[i++] == c)
+		return (i);
+	return (-1);
+}
+
+static char	*ft_substr(char *str)
+{
+	int		i;
+	char	*p;
+
+	i = 0;
+	if(!str)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i++] == '\n')
+			break ;
+	}
+	p = malloc(i + 1);
+	if (!p)
+		return (NULL);
+	p[i] = '\0';
+	while (i-- > 0)
+		p[i] = str[i];
+	return (p);
+}
+
+static char	*ft_subjoin(char *str)
+{
+	char	*ptr;
+	int		len;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	i = ft_check(str, '\n');
+	if (i == -1)
+		i = 0;
+	len = ft_strlen(str + i);
+	ptr = malloc(len + 1);
+	if (!ptr)
+		return (NULL);
+	ptr = ft_strncpy(ptr, str + i, len + 1);
+	free(str);
+	return (ptr);
 }
 
 char	*get_next_line(int fd)
 {
-	static int		i;
-	static int		flag;
-	static char		*buf;
-	char			*line;
-	int				sline;
+	static char	*line;
+	char		*buf;
+	ssize_t		fill;
 
-	if (!flag)
-		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	initialize(&flag, &sline);
-	if (BUFFER_SIZE == 0)
-		return (NULL);
-	while (1)
+	fill = 1;
+	while (fill > 0)
 	{
-		read(fd, buf + i, 1);
-		sline++;
-		if (buf[i++] == '\n')
-			break ;
+		buf = malloc((size_t)BUFFER_SIZE + 1);
+		if (!buf)
+			return (NULL);
+		fill = read(fd, buf, BUFFER_SIZE);
+		buf[fill] = '\0';
+		if (fill == 0 && ft_check(line, '\n') == -1)
+			return (fill_zero(&line, &buf));
+		line = ft_strjoin(line, buf);
+		if (ft_check(line, '\n') != -1)
+		{
+			buf = ft_substr(line);
+			line = ft_subjoin(line);
+			return (buf);
+		}
 	}
-	line = ft_memcpy(malloc(sizeof(char) * sline), buf + (i - sline), sline);
-	return (line);
+	return (NULL);
 }
-
-// tets
