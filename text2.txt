@@ -1,6 +1,6 @@
 Line 1: The blockchain provides a decentralized ledger for secure transactions.
 Line 2: Cybersecurity is a top priority for modern digital enterprises.
-Line 3: Cybersecurity is a top priority for modern digital enterprises.
+Line 3: Edge computing reduces latency by processing data closer to the source.
 Line 4: Cybersecurity is a top priority for modern digital enterprises.
 Line 5: Edge computing reduces latency by processing data closer to the source.
 Line 6: Machine learning models require vast amounts of high-quality data.

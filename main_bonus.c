@@ -25,5 +25,57 @@ int main()
 	printf("%s", line);
 	free(line);
 
+	line = get_next_line(fd2);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd2);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd4);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd5);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd5);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd5);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd5);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd5);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd5);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+
 	close(fd);
 }
