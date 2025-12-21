@@ -1,2 +1,3 @@
 Line 1: Consistency is the key to mastering any new skill.
-Line 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Line 2: Lorem ipsum dolorLine 1: The blockchain provides a decentralized ledger for secure transactions.
+Line sit amet, consectetur adipiscing elit.
