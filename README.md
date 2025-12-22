@@ -137,8 +137,6 @@ AI tool were used only to generated test file and simple input data.
 
 ## Algorithm Explanation and justification
 
-I save what read in buf and after allocate BUFFER_SIZE and +1 for '\0' it the end, next check if read return 0 that mean i it read whole file if yse and i don't any '\n' free buf and made line pointe to NULL and return any data i still have, if fill not 0 i use strjoin to add string from buf to static variable line i modify strjoin to free old line and buf next check function to know if i have new line in line if yse use substr to store from beginning to new line in buf and use subjoin to store from new line to ending and return buf (aka line) and you need free it in main to don't have leaks.
-
 1. A static variable (`line`) use to store leftover data between calls.
 2. Memory is allocate for a buffer (`buf`) of size `BUFFER_SIZE` + 1 to store data read by `read()`.
 3. The function read from file descriptor until:
