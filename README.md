@@ -145,11 +145,14 @@ I save what read in buf and after allocate BUFFER_SIZE and +1 for '\0' it the en
     1. A newline (`\n`) is found, or
     2. `read()` return `0` (end of file), or
     3. An error occurs.
-4. Each buffer read is appended to static variable using a custom `strjoin()`.
+4. Each buffer read is appended to static variable using a custom `ft_strjoin()`.
 5. When a newline detected:
-    1. A substring from the beginning up to the newline and returned.
+    1. A substring from the beginning up to the newline using `ft_substr()` and returned.
     2. The remaining data after the newline is kept in the static variable (`line`) for the next call
 6. If the end of file is reached and no newline:
+    1. The remaining content is returned.
+    2. The static variable is freed using `free()`.
+7. All allocated memory is carefully freed to avoid leaks.
 
 ### Feature
 
