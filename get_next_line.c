@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/22 09:08:06 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/22 16:43:59 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	*fill_zero(char **line, char **buf)
 	}
 	*buf = *line;
 	*line = NULL;
-	return(*buf);
+	return (*buf);
 }
 
 static int	ft_check(char *s, char c)
@@ -49,7 +49,7 @@ static char	*ft_substr(char *str)
 	char	*p;
 
 	i = 0;
-	if(!str)
+	if (!str)
 		return (NULL);
 	while (str[i])
 	{
