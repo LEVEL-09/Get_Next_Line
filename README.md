@@ -4,37 +4,46 @@ This project has been created as part of the 42 curriculum by **_mkhoubaz_**
 
 ## Description
 
-This project in **C** about created **Get_next_line** function read from file descriptor use function **read()** and return one line or return NULL if any error happened or nothing else to read use **static variable** without leaks.
+**Get Next Line** is a **C** project that consists of implementing a `Get_next_line` function.
+The goal of this function is to read from file descriptor and return **one line at atime**, ending with new line character (`\n`) if present, or `NULL` when nothing left to read ot an error occurs.
+
+The project focuses on:
+
+- Using the `read()` system call
+- Managing memory safely (no leaks)
+- Handle static variables
+- Supporting different `BUFFER_SIZE` value
+- Managing multiple file descriptor in Bonus part
 
 ## Instructions
 
 ### How to run project
 
-Use **CC** compiler and it flags `-Wall -Wextra -Werror`
+Use **CC** compiler with the required flags:
 
-```txt
+```sh
 cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c main.c && ./a.out
 ```
 
 Note:
 > Flags to any warning be come error
 
-With **BUFFER_SIZE** marco
+Using custom**BUFFER_SIZE** marco
 
-```txt
+```sh
 cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c main.c -D BUFFER_SIZE=1337 && ./a.out
 ```
 
-**Valgrind** to check if i have leaks
+To verify memory leaks use **Valgrind**
 
-```txt
+```sh
 cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c main.c -D BUFFER_SIZE=42 && valgrind -s --track-origins=yes  --leak-check=full ./a.out
 ```
 
 Note:
-> -s for summary error no duplicate --track-origins=yes to see uninitialized value --leak-check=full to give you more details leaks
+> -s for summary error report --track-origins=yes to track uninitialized values --leak-check=full provides detailed information
 
-### Example of main
+### Usage examples
 
 File main example to test Mandatory part
 
@@ -62,7 +71,7 @@ int main()
 }
 ```
 
-File main example to test Bonus part
+File main example to test Bonus part (Multiple file descriptor)
 
 ```c
 #include "get_next_line_bonus.h"
@@ -112,28 +121,40 @@ int main()
 
 ## Resources
 
-### website and books
+### Website and books
 
-What is static variable and how use it from [geeksforgeeks](https://www.geeksforgeeks.org/c/static-variables-in-c/)
+Static variables in C [geeksforgeeks](https://www.geeksforgeeks.org/c/static-variables-in-c/)
 
-What argument pass to read function and what it return [opengroup](https://pubs.opengroup.org/onlinepubs/009604599/functions/read.html)
+`read()` system call documentation [opengroup](https://pubs.opengroup.org/onlinepubs/009604599/functions/read.html)
 
-What is File descriptor in [linux programming interface book](https://broman.dev/download/The%20Linux%20Programming%20Interface.pdf)
+File descriptor [linux programming interface book](https://broman.dev/download/The%20Linux%20Programming%20Interface.pdf)
 
-How read offset work [IC221 - Systems Programming](https://www.usna.edu/Users/cs/wcbrown/courses/IC221/classes/L09/Class.html) and [linux programming interface book](https://broman.dev/download/The%20Linux%20Programming%20Interface.pdf)
+File offset and read behavior [IC221 - Systems Programming](https://www.usna.edu/Users/cs/wcbrown/courses/IC221/classes/L09/Class.html) and [linux programming interface book](https://broman.dev/download/The%20Linux%20Programming%20Interface.pdf)
 
 ### How I use AI
 
-I don't use AI to much in this project because it was unuseful with my logic i use it just to generated test texts
+AI tool were used only to generated test file and simple input data.
 
-## Additional
-
-### Explanation algorithm
+## Algorithm Explanation and justification
 
 I save what read in buf and after allocate BUFFER_SIZE and +1 for '\0' it the end, next check if read return 0 that mean i it read whole file if yse and i don't any '\n' free buf and made line pointe to NULL and return any data i still have, if fill not 0 i use strjoin to add string from buf to static variable line i modify strjoin to free old line and buf next check function to know if i have new line in line if yse use substr to store from beginning to new line in buf and use subjoin to store from new line to ending and return buf (aka line) and you need free it in main to don't have leaks.
 
-### Feature list
+1. A static variable (`line`) use to store leftover data between calls.
+2. Memory is allocate for a buffer (`buf`) of size `BUFFER_SIZE` + 1 to store data read by `read()`.
+3. The function read from file descriptor until:
+    1. A newline (`\n`) is found, or
+    2. `read()` return `0` (end of file), or
+    3. An error occurs.
+4. Each buffer read is appended to static variable using a custom `strjoin()`.
+5. When a newline detected:
+    1. A substring from the beginning up to the newline and returned.
+    2. The remaining data after the newline is kept in the static variable (`line`) for the next call
+6. If the end of file is reached and no newline:
 
-* Use linked list in Bonus part
-* Make logic more simple
-* Handle undefine behavior in binary text
+### Feature
+
+- Return one line at time from file descriptor
+- Handle macro `BUFFER_SIZE`
+- No memory leaks
+- Bound: support multiple file descriptor
+- Handle when `malloc()` and `read()` filed
