@@ -13,7 +13,8 @@ int main()
 	printf("%s", line);
 	free(line);
 
-	close(fd);
+	sleep(10);
+
 	line = get_next_line(fd);
 	printf("%s", line);
 	free(line);
@@ -26,4 +27,5 @@ int main()
 	// 	line = get_next_line(fd);
 	// }
 
+	close(fd);
 }
