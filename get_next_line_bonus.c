@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 11:13:55 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/21 13:37:51 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/22 08:52:23 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ static char	*ft_subjoin(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*line[1024];
+	static char	*line[1025];
 	char		*buf;
 	ssize_t		fill;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
 	fill = 1;
 	while (fill > 0)

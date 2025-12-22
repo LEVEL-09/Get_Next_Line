@@ -10,12 +10,20 @@ int main()
 	char	*line;
 
 	line = get_next_line(fd);
-	while (line)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
+	printf("%s", line);
+	free(line);
 
 	close(fd);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+
+	// while (line)
+	// while (line)
+	// {
+	// 	printf("%s", line);
+	// 	free(line);
+	// 	line = get_next_line(fd);
+	// }
+
 }

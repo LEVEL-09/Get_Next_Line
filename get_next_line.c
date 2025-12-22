@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/20 22:54:08 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/22 08:32:06 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	*fill_zero(char **line, char **buf)
 {
 	free(*buf);
-	if (!(line) || line[0][0] == '\0')
+	if (!(*line) || line[0][0] == '\0')
 	{
 		free(*line);
 		*line = NULL;
@@ -98,7 +98,7 @@ char	*get_next_line(int fd)
 	{
 		buf = malloc((size_t)BUFFER_SIZE + 1);
 		if (!buf)
-			return (NULL);
+			return (fill_zero(&line, &buf), NULL);
 		fill = read(fd, buf, BUFFER_SIZE);
 		buf[fill] = '\0';
 		if (fill == 0 && ft_check(line, '\n') == -1)
