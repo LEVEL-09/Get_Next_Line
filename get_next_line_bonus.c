@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 11:13:55 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/21 11:15:52 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/22 09:08:27 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ static char	*ft_subjoin(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*line;
+	static char	*line[1025];
 	char		*buf;
 	ssize_t		fill;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
 	fill = 1;
 	while (fill > 0)
@@ -101,13 +101,13 @@ char	*get_next_line(int fd)
 			return (NULL);
 		fill = read(fd, buf, BUFFER_SIZE);
 		buf[fill] = '\0';
-		if (fill == 0 && ft_check(line, '\n') == -1)
-			return (fill_zero(&line, &buf));
-		line = ft_strjoin(line, buf);
-		if (ft_check(line, '\n') != -1)
+		if (fill == 0 && ft_check(line[fd], '\n') == -1)
+			return (fill_zero(line, &buf));
+		line[fd] = ft_strjoin(line[fd], buf);
+		if (ft_check(line[fd], '\n') != -1)
 		{
-			buf = ft_substr(line);
-			line = ft_subjoin(line);
+			buf = ft_substr(line[fd]);
+			line[fd] = ft_subjoin(line[fd]);
 			return (buf);
 		}
 	}
