@@ -5,20 +5,29 @@
 
 int main()
 {
-	int fd = open("text.txt", O_RDONLY);
+	int fd = open("text2.txt", O_RDWR);
+	// if (fd < 0)
+	// 	exit(2);
 
 	char	*line;
 
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
+	// line = get_next_line(fd);
+	// printf("%s", line);
+	// free(line);
 
-	close(fd);
+	// close(fd);
 
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
+	// line = get_next_line(fd);
+	// printf("%s", line);
+	// free(line);
 
+
+	for (int i =0; i < 3000; i++)
+	{
+		line = get_next_line(fd);
+		printf("%s", line);
+		free(line);
+	}
 
 	// while (line)
 	// while (line)

@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 11:13:55 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/23 09:59:31 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/23 18:10:00 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_subjoin(char *str)
 	len = ft_strlen(str + i);
 	ptr = malloc(len + 1);
 	if (!ptr)
-		return (fill_zero(&str, NULL, 0));
+		return (free(str), NULL);
 	ptr = ft_strncpy(ptr, str + i, len + 1);
 	free(str);
 	return (ptr);
@@ -93,7 +93,6 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
-	fill = 1;
 	while (1)
 	{
 		buf = malloc((size_t)BUFFER_SIZE + 1);
