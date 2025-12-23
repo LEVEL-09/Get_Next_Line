@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:32:17 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/23 09:49:30 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/23 13:16:30 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+// git stash pop
 
 size_t			ft_strlen(char *s);
 char			*ft_substr(char *str);

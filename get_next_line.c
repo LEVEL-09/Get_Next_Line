@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:09:15 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/23 09:51:17 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/23 13:15:25 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_subjoin(char *str)
 	len = ft_strlen(str + i);
 	ptr = malloc(len + 1);
 	if (!ptr)
-		return (fill_zero(&str, NULL, 0));
+		return (free(str), NULL);
 	ptr = ft_strncpy(ptr, str + i, len + 1);
 	free(str);
 	return (ptr);
