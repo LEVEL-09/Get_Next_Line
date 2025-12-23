@@ -6,11 +6,18 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 11:13:50 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/21 11:14:57 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/23 09:50:00 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+char	*subs(char **line, char **buf)
+{
+	*buf = ft_substr(*line);
+	*line = ft_subjoin(*line);
+	return (*buf);
+}
 
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {

@@ -13,11 +13,12 @@ int main()
 	printf("%s", line);
 	free(line);
 
-	sleep(10);
+	close(fd);
 
 	line = get_next_line(fd);
 	printf("%s", line);
 	free(line);
+
 
 	// while (line)
 	// while (line)
@@ -27,5 +28,4 @@ int main()
 	// 	line = get_next_line(fd);
 	// }
 
-	close(fd);
 }
