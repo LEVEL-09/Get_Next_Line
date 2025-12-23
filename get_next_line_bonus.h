@@ -6,7 +6,7 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 11:13:52 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/22 09:06:43 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/23 18:31:41 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 # include <unistd.h>
 
 size_t			ft_strlen(char *s);
+char			*ft_substr(char *str);
+char			*ft_subjoin(char *str);
 char			*get_next_line(int fd);
+char			*subs(char **line, char **buf);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_strncpy(char *dest, char *src, unsigned int n);
 

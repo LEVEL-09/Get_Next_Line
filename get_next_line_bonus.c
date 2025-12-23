@@ -6,16 +6,16 @@
 /*   By: mkhoubaz <mkhoubaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 11:13:55 by mkhoubaz          #+#    #+#             */
-/*   Updated: 2025/12/22 16:43:22 by mkhoubaz         ###   ########.fr       */
+/*   Updated: 2025/12/23 18:31:21 by mkhoubaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static void	*fill_zero(char **line, char **buf)
+static void	*fill_zero(char **line, char **buf, int flag)
 {
 	free(*buf);
-	if (!(line) || line[0][0] == '\0')
+	if (!(*line) || line[0][0] == '\0' || flag == 1)
 	{
 		free(*line);
 		*line = NULL;
@@ -43,7 +43,7 @@ static int	ft_check(char *s, char c)
 	return (-1);
 }
 
-static char	*ft_substr(char *str)
+char	*ft_substr(char *str)
 {
 	int		i;
 	char	*p;
@@ -65,7 +65,7 @@ static char	*ft_substr(char *str)
 	return (p);
 }
 
-static char	*ft_subjoin(char *str)
+char	*ft_subjoin(char *str)
 {
 	char	*ptr;
 	int		len;
@@ -79,7 +79,7 @@ static char	*ft_subjoin(char *str)
 	len = ft_strlen(str + i);
 	ptr = malloc(len + 1);
 	if (!ptr)
-		return (NULL);
+		return (free(str), NULL);
 	ptr = ft_strncpy(ptr, str + i, len + 1);
 	free(str);
 	return (ptr);
@@ -93,23 +93,20 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
-	fill = 1;
-	while (fill > 0)
+	while (1)
 	{
 		buf = malloc((size_t)BUFFER_SIZE + 1);
 		if (!buf)
-			return (NULL);
+			return (fill_zero(&line[fd], &buf, 0));
 		fill = read(fd, buf, BUFFER_SIZE);
+		if (fill < 0)
+			return (fill_zero(&line[fd], &buf, 1));
 		buf[fill] = '\0';
 		if (fill == 0 && ft_check(line[fd], '\n') == -1)
-			return (fill_zero(line, &buf));
+			return (fill_zero(&line[fd], &buf, 0));
 		line[fd] = ft_strjoin(line[fd], buf);
 		if (ft_check(line[fd], '\n') != -1)
-		{
-			buf = ft_substr(line[fd]);
-			line[fd] = ft_subjoin(line[fd]);
-			return (buf);
-		}
+			return (subs(&line[fd], &buf));
 	}
 	return (NULL);
 }
