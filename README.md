@@ -1,6 +1,6 @@
 # Get Next Line
 
-This project has been created as part of the 42 curriculum by **_mkhoubaz_**
+*This project has been created as part of the 42 curriculum by mkhoubaz*
 
 ## Description
 
